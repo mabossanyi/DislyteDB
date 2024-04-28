@@ -100,8 +100,10 @@ CREATE TABLE Relic(
 	idRelic SERIAL NOT NULL, 
 	name VARCHAR(64) NOT NULL, 
 	description VARCHAR(256) NOT NULL, 
+	idBoss INT NOT NULL,
 	isDeleted BOOL NOT NULL, 
-	CONSTRAINT pk_idRelic PRIMARY KEY (idRelic)
+	CONSTRAINT pk_idRelic PRIMARY KEY (idRelic), 
+	CONSTRAINT fk_idBoss FOREIGN KEY (idBoss) REFERENCES Boss(idBoss)
 ); 
 
 
