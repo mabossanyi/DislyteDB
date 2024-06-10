@@ -2,7 +2,7 @@
 	Author: Marc-Andre Bossanyi 
 	Email: ma.bossanyi@gmail.com
 	Creation Date: 2024/04/28
-	Last Updated: 2024/04/28
+	Last Updated: 2024/06/09
 */
 
 -- Script CREATE for the table "Rarity"
@@ -25,6 +25,15 @@ CREATE TABLE Element(
 ); 
 
 
+-- Script CREATE for the table "Affiliation"
+CREATE TABLE Affiliation(
+	idAffiliation SERIAL NOT NULL,
+	name VARCHAR(64) NOT NULL,
+	isDeleted BOOL NOT NULL,
+	CONSTRAINT pk_idAffiliation PRIMARY KEY (idAffiliation)
+);
+
+
 -- Script CREATE for the table "Role"
 CREATE TABLE Role(
 	idRole SERIAL NOT NULL, 
@@ -40,16 +49,7 @@ CREATE TABLE Mythology(
 	name VARCHAR(64) NOT NULL, 
 	isDeleted BOOL NOT NULL, 
 	CONSTRAINT pk_idMythology PRIMARY KEY (idMythology)
-); 
-
-
--- Script CREATE for the table "Affiliation"
-CREATE TABLE Affiliation(
-	idAffiliation SERIAL NOT NULL, 
-	name VARCHAR(64) NOT NULL, 
-	isDeleted BOOL NOT NULL, 
-	CONSTRAINT pk_idAffiliation PRIMARY KEY (idAffiliation)
-); 
+);
 
 
 -- Script CREATE for the table "Esper"
@@ -61,6 +61,7 @@ CREATE TABLE Esper(
 	idRole INT NOT NULL, 
 	idMythology INT NOT NULL, 
 	idAffiliation INT NOT NULL,
+	version VARCHAR(16) NOT NULL,
 	age INT NOT NULL, 
 	birthday DATE NOT NULL, 
 	isOwned BOOL NOT NULL, 
@@ -111,8 +112,10 @@ CREATE TABLE Relic(
 CREATE TABLE EsperRelic(
 	idEsperRelic SERIAL NOT NULL, 
 	idEsper INT NOT NULL, 
-	idRelic INT NOT NULL, 
+	idFourPiecesRelic INT NOT NULL,
+	idTwoPiecesRelic INT NOT NULL,
 	CONSTRAINT pk_idEsperRelic PRIMARY KEY (idEsperRelic), 
 	CONSTRAINT fk_idEsper FOREIGN KEY (idEsper) REFERENCES Esper(idEsper), 
-	CONSTRAINT fk_idRelic FOREIGN KEY (idRelic) REFERENCES Relic(idRelic)
+	CONSTRAINT fk_idFourPiecesRelic FOREIGN KEY (idFourPiecesRelic) REFERENCES Relic(idRelic),
+	CONSTRAINT fk_idTwoPiecesRelic FOREIGN KEY (idTwoPiecesRelic) REFERENCES Relic(idRelic)
 );
